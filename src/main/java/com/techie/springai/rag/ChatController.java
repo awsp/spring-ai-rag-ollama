@@ -1,7 +1,7 @@
 package com.techie.springai.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +24,10 @@ public class ChatController {
     @PostMapping
     public String chat(@RequestBody String message) {
         return ChatClient.builder(ollamaChatModel)
-                .build().prompt()
-                .advisors(new QuestionAnswerAdvisor(vectorStore))
-                .user(message)
-                .call()
-                .content();
+          .build().prompt()
+          .advisors(VectorStoreChatMemoryAdvisor.builder(vectorStore).build())
+          .user(message)
+          .call()
+          .content();
     }
 }
