@@ -1,6 +1,7 @@
 package com.techie.springai.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -25,7 +26,8 @@ public class ChatController {
     public String chat(@RequestBody String message) {
         return ChatClient.builder(ollamaChatModel)
           .build().prompt()
-          .advisors(VectorStoreChatMemoryAdvisor.builder(vectorStore).build())
+          .advisors(VectorStoreChatMemoryAdvisor.builder(vectorStore).build(),
+            QuestionAnswerAdvisor.builder(vectorStore).build())
           .user(message)
           .call()
           .content();

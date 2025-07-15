@@ -33,6 +33,8 @@ dependencies {
   // Enable to use docker
   //runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
   implementation("org.springframework.ai:spring-ai-tika-document-reader")
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("org.projectlombok:lombok")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-testcontainers")
@@ -40,6 +42,7 @@ dependencies {
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("org.testcontainers:ollama")
   testImplementation("org.testcontainers:postgresql")
+  annotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {
